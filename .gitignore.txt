@@ -38,4 +38,4 @@ Thumbs.db
 
 # Files with confidential information #
 #######################################
-spaced_repetition/resources/sender_email_account_credentials.py
+resources/*
