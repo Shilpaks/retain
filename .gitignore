@@ -92,4 +92,4 @@ ENV/
 
 # Files with confidential information #
 #######################################
-spaced_repetition/resources/*
+spaced_repetition/resources/
