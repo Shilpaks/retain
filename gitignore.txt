@@ -1,1 +1,0 @@
-spaced_repetition/resources/*
