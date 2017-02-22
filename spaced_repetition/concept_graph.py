@@ -21,11 +21,17 @@ class ConceptGraph(object):
 	def get_concept_list(self): 
 		return self.graph.nodes()
 
+	def print_out_degrees(self): 
+		for node in self.graph.nodes(): 
+			print self.graph.degree(node)
+
 	def visualize_graph(self): 
 		layout = nx.spring_layout(concept_graph.graph)
 		nx.draw_networkx_labels(concept_graph.graph, pos=layout)
 		nx.draw(concept_graph.graph, pos=layout)
 		plt.show()
 
-concept_graph = ConceptGraph("data/concept_graph.csv")
+GRAPH_PATH = "data/concept_graph.csv"
+concept_graph = ConceptGraph(GRAPH_PATH)
 concept_graph.visualize_graph()
+
