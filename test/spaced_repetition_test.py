@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../')
+sys.path.append('src/')
 import spaced_repetition
 import concept_graph
 
