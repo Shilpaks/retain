@@ -2,9 +2,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 class ConceptGraph(object): 
-	def __init__(self, graph_csv, test): 
+	def __init__(self, graph_csv, is_test): 
 		self.graph_csv = graph_csv
-		if test:
+		if is_test:
 			self.create_test_graph()
 		else: 
 			self.create_graph()
@@ -35,9 +35,9 @@ class ConceptGraph(object):
 			split_line = line.split(",")
 			source = split_line[1]
 			destination = split_line[0]
-			self.graph.add_node(source) 
-			self.graph.add_node(destination) 
-			self.graph.add_edge(source, destination)
+			self.reversed_graph.add_node(source) 
+			self.reversed_graph.add_node(destination) 
+			self.reversed_graph.add_edge(source, destination)
 
 	def create_test_graph(self): 
 		self.graph = nx.DiGraph()
