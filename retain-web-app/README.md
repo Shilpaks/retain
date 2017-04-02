@@ -1,18 +1,14 @@
-# Create Virtual Environment 
+## Create Virtual Environment ##
 
 	virtualenv venv
 
-# Activate Virtual Environment 
+## Activate Virtual Environment ##
 
 	source venv/bin/activate
 
-# Deactivate Virtual Environment 
+## Deactivate Virtual Environment ##
 
 	deavivate
-
-# flask-bootstrap #
-
-Flask-Bootstrap is a simple template I use when creating small webapps using the Flask Framework, Twitter Bootstrap and SQLAlchemy as the ORM. 
 
 ## Install ##
 
