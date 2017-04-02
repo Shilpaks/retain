@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
@@ -83,6 +84,7 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
+env/
 
 # Spyder project settings
 .spyderproject
@@ -93,6 +95,3 @@ ENV/
 # Files with confidential information #
 #######################################
 spaced_repetition/resources/
-=======
-*.pyc
-env/
