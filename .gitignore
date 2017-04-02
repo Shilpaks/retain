@@ -93,3 +93,6 @@ ENV/
 # Files with confidential information #
 #######################################
 spaced_repetition/resources/
+=======
+*.pyc
+env/
