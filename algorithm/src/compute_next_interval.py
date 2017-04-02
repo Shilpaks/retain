@@ -33,8 +33,3 @@
 		else: 
 			next_review_time =  now_in_seconds + self.ONE_DAY_IN_SECONDS
 			return next_review_time
-
-
-
-
-
