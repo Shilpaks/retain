@@ -1,14 +1,14 @@
 # Create Virtual Environment 
 
-	`virtualenv venv`
+	virtualenv venv
 
 # Activate Virtual Environment 
 
-	`source venv/bin/activate`
+	source venv/bin/activate
 
 # Deactivate Virtual Environment 
 
-	`deavivate`
+	deavivate
 
 # flask-bootstrap #
 
