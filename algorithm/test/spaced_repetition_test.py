@@ -1,9 +1,8 @@
 import time
 import sys
-sys.path.append('src/')
 
-import spaced_repetition
-import concept_graph
+import algorithm.src.concept_graph as concept_graph
+import algorithm.src.spaced_repetition as spaced_repetition
 
 """ Set up methods """ 
 """"""""""""""""""""""""
@@ -13,12 +12,11 @@ def set_up_for_concept_ancestor_tests():
 	cg = concept_graph.ConceptGraph(GRAPH_PATH, True)
 
 	num_emails_limit_per_day = 3
-	user_info = None
+	user_name = None 
+	email_addr = None 
 	course_concept_graph = cg.graph
-	reverse_course_concept_graph = None 
 
-	sr = spaced_repetition.SpacedRepetition(num_emails_limit_per_day, user_info, course_concept_graph, reverse_course_concept_graph)
-	sr.populate_concept_ancestor_distance_dict()
+	sr = spaced_repetition.SpacedRepetition(num_emails_limit_per_day, user_name, email_addr, course_concept_graph)
 	return sr 
 
 """ Testing methods """ 

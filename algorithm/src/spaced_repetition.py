@@ -1,16 +1,17 @@
 import time 
 import copy
+import compute_next_interval
 
 class SpacedRepetition(object): 
 
-	def __init__(self, num_emails_limit_per_day, user_info, course_concept_graph, reverse_course_concept_graph):
+	def __init__(self, num_emails_limit_per_day, user_name, email_addr, course_concept_graph):
 
 		# upper bound on the number of emails we can send a given user each day 
 		self.num_emails_limit_per_day = num_emails_limit_per_day 
 
 		self.course_concept_graph = course_concept_graph
-		self.reverse_course_concept_graph = reverse_course_concept_graph
-		self.user_info = user_info
+		self.user_name = user_name
+		self.email_addr = email_addr
 
 		self.concepts = self.course_concept_graph.nodes()
 
@@ -30,6 +31,10 @@ class SpacedRepetition(object):
 		self.COMPREHENSION_SCORE_THRESHOLD = 3 # based on a 1 to 5 Likert scale
 
 		self.MAX_COMPREHENSION_SCORE = 5
+
+		self.compute_next_interval = compute_next_interval.ComputeNextInterval(self.concepts)
+
+		self.populate_concept_ancestor_distance_dict()
 
 	""" INITIALIZATON """ 
 
@@ -85,12 +90,10 @@ class SpacedRepetition(object):
 		all_timely_concepts.sort(key=lambda x : self.concept_next_time_dict[x])
 		return all_timely_concepts
 
-	def assign_next_revisit_time(self, concept): 
+	def assign_next_revisit_time(self, concept, retention_score): 
 		""" assign a new revisit time for a @param concept. change this later with spaced repetition equations """ 
 
-		curr_time = time.time()
-		one_day_in_seconds = 60*60*24
-		self.concept_next_time_dict[concept] = curr_time + one_day_in_seconds
+		self.concept_next_time_dict[concept] = compute_next_interval.test_next_interval(concept, retention_score)
 
 	def return_ancestors_with_low_comprehension_scores(self, concept): 
 		""" for a given concept, @param concept, return all of the ancestors that have comprehension scores below
@@ -182,7 +185,7 @@ class SpacedRepetition(object):
 		""" Upon recieving feedback from a student about a concept we recently reminded them of, 
 		update the respective information about the student """
 		
-		self.assign_next_revisit_time()
+		self.assign_next_revisit_time(concept, retention_score)
 		self.register_student_feedback(concept, comprehension_score, retention_score)
 	
 	def register_student_feedback(self, concept, comprehension_score, retention_score):
@@ -192,3 +195,9 @@ class SpacedRepetition(object):
 		
 		self.concept_comprehension_rating_dict[concept] = comprehension_score # in the future, keep track of all scores for analytics 
 		self.concept_retention_rating_dict[concept] = retention_score # in the future, keep track of all scores for analytics 
+	
+	""" Helper Methods for User Interaction """ 
+
+	# def add_concept(self, concept, comprehension_score): 
+	# 	self.concept_comprehension_rating_dict[concept] = comprehension_score
+	# 	self.concept_next_time_dict = time.time() + 

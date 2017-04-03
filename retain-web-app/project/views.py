@@ -16,37 +16,18 @@ app.secret_key = 'some_secret'
 def index():
     form = ConceptSubmissionForm(request.form)
     if request.method == 'POST' and form.validate():
-    	print "hi"
-        # user = User(form.concept.data, form.R_score.data, form.C_score.data)
-        # db_session.add(user)
         flash('Successfully submitted.')
         return redirect(url_for('index'))
     return render_template('index.html', form=form)
 
 @app.route("/add",  methods=['GET', 'POST'])
 def add():
-	print "hi"
-	form = AddConceptSubmissionForm(request.form)
-	if request.method == 'POST' and form.validate():
-		print "reached"
-		# user = User(form.concept.data, form.R_score.data, form.C_score.data)
-		# db_session.add(user)
-		flash('Successfully submitted.')
-		return redirect(url_for('add'))
-	return render_template('add-concept.html', form=form)
-
-@app.route("/fluid")
-def fluid():
-    return render_template('fluid.html')
-
-@app.route("/hero")
-def hero():
-    return render_template('hero.html')
-
-@app.route("/layout")
-def layout():
-    return render_template('layout-template.html')
-
+    form = AddConceptSubmissionForm(request.form)
+    if request.method == 'POST' and form.validate():
+        print form.concept.data
+        flash('Successfully submitted.')
+        return redirect(url_for('add'))
+    return render_template('add-concept.html', form=form)
 
 # Error Pages
 @app.errorhandler(500)
