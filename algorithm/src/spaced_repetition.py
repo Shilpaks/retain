@@ -93,7 +93,7 @@ class SpacedRepetition(object):
 	def assign_next_revisit_time(self, concept, retention_score): 
 		""" assign a new revisit time for a @param concept. change this later with spaced repetition equations """ 
 
-		self.concept_next_time_dict[concept] = compute_next_interval.test_next_interval(concept, retention_score)
+		self.concept_next_time_dict[concept] = self.compute_next_interval.generate_next_interval(concept, retention_score)
 
 	def return_ancestors_with_low_comprehension_scores(self, concept): 
 		""" for a given concept, @param concept, return all of the ancestors that have comprehension scores below
@@ -181,23 +181,23 @@ class SpacedRepetition(object):
 
 	""" REGISTER STUDENT FEEDBACK """ 
 
-	def update_student_information(self, concept, comprehension_score, retention_score):
-		""" Upon recieving feedback from a student about a concept we recently reminded them of, 
-		update the respective information about the student """
-		
-		self.assign_next_revisit_time(concept, retention_score)
-		self.register_student_feedback(concept, comprehension_score, retention_score)
-	
-	def register_student_feedback(self, concept, comprehension_score, retention_score):
-		""" concept: the name of the concept that the student is providing feedback on 
-		comprehension_score: integer score that represents the student's comprehension of the concept
-		retention_score: integer score that represents the student's retention of the concept """
-		
-		self.concept_comprehension_rating_dict[concept] = comprehension_score # in the future, keep track of all scores for analytics 
-		self.concept_retention_rating_dict[concept] = retention_score # in the future, keep track of all scores for analytics 
-	
-	""" Helper Methods for User Interaction """ 
+	def add_concept(self, concept, comprehension_score):
+		if concept not in self.concept_next_time_dict: 
+			return "Invalid Concept"
+		elif self.concept_next_time_dict[concept] is None:
+			self.concept_next_time_dict[concept] = self.compute_next_interval.gen_next_interval_for_new_concept(concept)
+			self.concept_comprehension_rating_dict[concept] = comprehension_score
+			return "Concept was successfully added."
+		else: 
+			return "Error: concept has already been added."
 
-	# def add_concept(self, concept, comprehension_score): 
-	# 	self.concept_comprehension_rating_dict[concept] = comprehension_score
-	# 	self.concept_next_time_dict = time.time() + 
+	def revisit_concept(self, concept, comprehension_score, retention_score):
+		if concept not in self.concept_next_time_dict: 
+			return "Invalid Concept"
+		elif self.concept_next_time_dict[concept] is None: 
+			return "Error: concept has not yet been added"
+		else: 
+			self.assign_next_revisit_time(concept, retention_score)
+			self.concept_comprehension_rating_dict[concept] = comprehension_score
+			self.concept_retention_rating_dict[concept] = retention_score
+			return "Concept successfully revisited."

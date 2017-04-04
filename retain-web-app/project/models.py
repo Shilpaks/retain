@@ -2,7 +2,7 @@
 
 from flask import Flask
 
-from wtforms import Form, BooleanField, StringField, PasswordField, validators, SelectField
+from wtforms import Form, BooleanField, IntegerField, StringField, PasswordField, validators, SelectField
 
 from project import config
 
@@ -13,11 +13,12 @@ app = Flask(__name__)
 # Form models 
 
 class ConceptSubmissionForm(Form):
-    concept = StringField('Concept', [validators.Length(min=1, max=100)])
-    R_score = StringField('Retention Score', [validators.Length(min=1, max=1)])
-    C_score = StringField('Comprehension Score', [validators.Length(min=1, max=1)])
+    concept = StringField('Concept', [validators.Length(min=1, max=100), validators.required()])
+    R_score = IntegerField('Retention Score', [validators.required()])
+    C_score = IntegerField('Comprehension Score', [validators.required()])
 
 class AddConceptSubmissionForm(Form):
-    concept = StringField('Concept', [validators.Length(min=1, max=100)])
-    C_score = StringField('Comprehension Score', [validators.Length(min=1, max=1)])
+    concept = StringField('Concept', [validators.required()])
+    C_score = IntegerField('Comprehension Score', [validators.required()])
+
 
