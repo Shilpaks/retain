@@ -94,4 +94,4 @@ env/
 
 # Files with confidential information #
 #######################################
-spaced_repetition/resources/
+algorithm/src/resources/sender_email_account_credentials.py
